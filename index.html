@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صوت السكينة | Sawt Al-Sakeenah</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #FFD54F;
+            --gold-dark: #C99F24;
+            --gold-glow: rgba(255, 213, 79, 0.25);
+            --app-green: #2E7D32;
+            --app-green-light: #4CAF50;
+            --green-glow: rgba(46, 125, 50, 0.35);
+            --bg-dark: #07090C;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.14);
+            --text-main: #FFFFFF;
+            --text-sub: #B0BEC5;
+            --green-accent: #81C784;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(46, 125, 50, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(255, 213, 79, 0.08) 0%, transparent 40%);
+            color: var(--text-main);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* الشريط العلوي */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: rgba(7, 9, 12, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 14px 0;
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2E7D32, #1B5E20);
+            border: 1.5px solid var(--app-green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 14px var(--green-glow);
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .lang-btn {
+            background: var(--glass-bg);
+            border: 1.5px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 6px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.25s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--gold);
+            background: var(--gold-glow);
+        }
+
+        /* القسم الترحيبي */
+        .hero {
+            text-align: center;
+            padding: 65px 0 45px;
+        }
+
+        .badge-tv {
+            display: inline-block;
+            background: rgba(46, 125, 50, 0.2);
+            border: 1.5px solid var(--app-green-light);
+            color: #A5D6A7;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 13.5px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            box-shadow: 0 0 16px rgba(46, 125, 50, 0.25);
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: 0 auto 36px;
+            color: var(--text-sub);
+            font-size: 17px;
+        }
+
+        /* بطاقات التحميل */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .dl-card {
+            background: var(--glass-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 24px 20px;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .dl-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 213, 79, 0.5);
+        }
+
+        .dl-card.featured {
+            border-color: var(--app-green-light);
+            background: linear-gradient(180deg, rgba(46, 125, 50, 0.2) 0%, rgba(255, 255, 255, 0.03) 100%);
+            box-shadow: 0 8px 24px rgba(46, 125, 50, 0.25);
+        }
+
+        .dl-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .dl-card.featured .dl-title {
+            color: #A5D6A7;
+        }
+
+        .dl-desc {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            margin-bottom: 18px;
+        }
+
+        .code-box {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1.5px dashed var(--gold);
+            border-radius: 14px;
+            padding: 10px 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            direction: ltr;
+        }
+
+        .code-number {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #FFFFFF;
+        }
+
+        .copy-btn {
+            background: var(--gold);
+            color: #000000;
+            border: none;
+            border-radius: 10px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-action {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.25s ease;
+            border: 1.5px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+        }
+
+        .btn-action.gold {
+            background: linear-gradient(135deg, var(--gold), #FFE082);
+            color: #000000;
+            border-color: var(--gold);
+        }
+
+        .btn-action.green {
+            background: linear-gradient(135deg, var(--app-green), var(--app-green-light));
+            color: #FFFFFF;
+            border-color: var(--app-green-light);
+            box-shadow: 0 4px 14px var(--green-glow);
+        }
+
+        .btn-action:hover {
+            background: #FFFFFF;
+            color: #000000;
+            border-color: #FFFFFF;
+        }
+
+        /* عناوين الأقسام */
+        .section {
+            padding: 55px 0 30px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .section-title span {
+            color: var(--gold);
+        }
+
+        .section-subtitle {
+            color: var(--text-sub);
+            font-size: 15.5px;
+        }
+
+        /* شبكة المميزات */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            transition: border-color 0.25s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(255, 213, 79, 0.45);
+        }
+
+        .feature-tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold);
+            background: rgba(255, 213, 79, 0.12);
+            padding: 3px 12px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-sub);
+        }
+
+        /* خطوات التثبيت */
+        .steps-box {
+            background: var(--glass-bg);
+            border: 1.5px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px 24px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .step-item:last-child {
+            border-bottom: none;
+        }
+
+        .step-num {
+            min-width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--app-green), var(--app-green-light));
+            color: #FFFFFF;
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+            box-shadow: 0 3px 10px var(--green-glow);
+        }
+
+        .step-content h4 {
+            font-size: 16.5px;
+            font-weight: 800;
+            color: #A5D6A7;
+            margin-bottom: 4px;
+        }
+
+        .step-content p {
+            font-size: 14.5px;
+            color: var(--text-sub);
+        }
+
+        /* الفوتر */
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--glass-border);
+            padding: 28px 0;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .en-only { display: none; }
+
+        html[lang="en"] .ar-only { display: none; }
+        html[lang="en"] .en-only { display: block; }
+        html[lang="en"] span.en-only, html[lang="en"] a.en-only { display: inline-block; }
+        html[lang="ar"] span.ar-only, html[lang="ar"] a.ar-only { display: inline-block; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 28px; }
+            .section-title { font-size: 23px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الشريط العلوي -->
+    <header>
+        <div class="container nav-row">
+            <div class="brand">
+                <div class="brand-logo">۞</div>
+                <div class="brand-name">
+                    <span class="ar-only">صوت السكينة</span>
+                    <span class="en-only">Sawt Al-Sakeenah</span>
+                </div>
+            </div>
+            <button class="lang-btn" onclick="toggleLanguage()" id="langToggleBtn">English</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- القسم الترحيبي -->
+        <section class="hero">
+            <div class="badge-tv">
+                <span class="ar-only">مُصمم خصيصاً لشاشات Android TV ويمكن تنزيله على الهواتف الذكية</span>
+                <span class="en-only">Specially Designed for Android TV & Smartphones</span>
+            </div>
+
+            <h1 class="ar-only">تطبيق <span>صوت السكينة</span> للقرآن الكريم</h1>
+            <h1 class="en-only"><span>Sawt Al-Sakeenah</span> Holy Quran App</h1>
+
+            <p class="ar-only">
+                تطبيقك القرآني المتكامل للاستماع إلى تلاوات كبار القراء، إذاعات القرآن الكريم، البث الحي من الحرمين الشريفين، الأذكار، المناهج التعليمية، ومواقيت الصلاة والأذان.
+            </p>
+            <p class="en-only">
+                Your complete Quranic companion to listen to renowned reciters, Holy Quran radio stations, live broadcasts of the Two Holy Mosques, Athkar, educational curricula, and accurate prayer times.
+            </p>
+            <div>
+                <a href="#downloadSection" class="btn-action green" style="max-width: 260px; margin: 0 auto;">
+                    <span class="ar-only">الانتقال إلى خيارات التحميل</span>
+                    <span class="en-only">Go to Download Options</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- قسم مميزات التلفاز -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title ar-only">مميزات نسخة التلفاز <span>Android TV</span></h2>
+                <h2 class="section-title en-only"><span>Android TV</span> Edition Features</h2>
+                <p class="section-subtitle ar-only">تجربة روحانية وبصرية متكاملة مصممة خصيصاً لشاشات التلفاز والتحكم بالريموت</p>
+                <p class="section-subtitle en-only">A complete spiritual and visual experience crafted specifically for TV screens and remote controls</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-tag ar-only">البث المباشر والإذاعات</span>
+                    <span class="feature-tag en-only">Live & Radio Stations</span>
+                    <h3 class="ar-only">البث الحي للحرمين وإذاعات القرآن</h3>
+                    <h3 class="en-only">Holy Mosques Live & Quran Radios</h3>
+                    <p class="ar-only">مشاهدة واستماع مباشر لقناة القرآن الكريم من مكة المكرمة وقناة السنة النبوية من المدينة المنورة بجودة عالية، مع عشرات الإذاعات القرآنية والإسلامية.</p>
+                    <p class="en-only">Watch and listen live to Makkah Quran TV and Madinah Sunnah TV in HD quality, alongside dozens of Quranic and Islamic radio stations.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-tag ar-only">القرآن الكريم</span>
+                    <span class="feature-tag en-only">Holy Quran</span>
+                    <h3 class="ar-only">عرض الآيات المتزامن وصفحة المصحف</h3>
+                    <h3 class="en-only">Synced Verses & Mushaf Page</h3>
+                    <p class="ar-only">مكتبة ضخمة لكبار القراء لجميع سور القرآن الكريم، مع ميزة عرض الآية المتزامنة مع صوت القارئ وصورة صفحة المصحف الشريف بجانبها.</p>
+                    <p class="en-only">A massive library of renowned reciters for all Surahs, featuring synchronized verse display alongside the corresponding Mushaf page.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-tag ar-only">مواقيت الصلاة والأذان</span>
+                    <span class="feature-tag en-only">Prayer Times & Adhan</span>
+                    <h3 class="ar-only">الأذان داخل وخارج التطبيق</h3>
+                    <h3 class="en-only">In-App & Outside-App Adhan Alert</h3>
+                    <p class="ar-only">عرض دقيق لمواقيت الصلاة والتقويم الهجري والميلادي حسب مدينتك، مع تنبيه الأذان تلقائياً حتى لو كان التطبيق مغلقاً أو أثناء مشاهدة تطبيقات أخرى.</p>
+                    <p class="en-only">Accurate prayer times and Hijri/Gregorian calendar by city, with automatic Adhan alerts even when the app is closed or while watching other apps.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-tag ar-only">التعليم والتحفيظ</span>
+                    <span class="feature-tag en-only">Education & Memorization</span>
+                    <h3 class="ar-only">القاعدة النورانية وتكرار الآيات</h3>
+                    <h3 class="en-only">Al-Nooraniyah & Verse Repetition</h3>
+                    <p class="ar-only">قسم تعليمي متكامل يشمل دروس القاعدة النورانية بالصوت والصورة، ونظام تحفيظ القرآن الكريم عبر تكرار الآية والصفحة بعدد مخصص مع عدة قراء.</p>
+                    <p class="en-only">Complete educational section including Al-Qaida Al-Nooraniyah audio/visual lessons, and Quran memorization by repeating verses and pages.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-tag ar-only">حماية الشاشة</span>
+                    <span class="feature-tag en-only">Screen Protection</span>
+                    <h3 class="ar-only">وضع الاستماع الليلي ومؤقت النوم</h3>
+                    <h3 class="en-only">Dark Listening Mode & Sleep Timer</h3>
+                    <p class="ar-only">تحويل شاشة التلفاز إلى شاشة سوداء مريحة للعين لحماية الشاشة مع استمرار تلاوة القرآن، بالإضافة إلى مؤقت نوم لإيقاف التشغيل تلقائياً.</p>
+                    <p class="en-only">Turn the TV screen completely black to protect your display and eyes while audio continues, plus a customizable sleep timer.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-tag ar-only">تخصيص كامل</span>
+                    <span class="feature-tag en-only">Full Customization</span>
+                    <h3 class="ar-only">خلفيات متحركة وقوائم مرنة</h3>
+                    <h3 class="en-only">Animated Backgrounds & Flexible Menus</h3>
+                    <p class="ar-only">اختيار بين خلفيات طبيعية ثابتة أو متحركة، وإمكانية التبديل بين شكل القائمة العرضية السفلية أو القائمة الطولية الجانبية حسب رغبتك.</p>
+                    <p class="en-only">Choose between calm static or video backgrounds, and switch effortlessly between horizontal bottom menus or vertical side menus.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم مميزات الهاتف -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title ar-only">ماذا يتوفر في <span>نسخة الهاتف</span>؟</h2>
+                <h2 class="section-title en-only">What's Included in the <span>Phone Edition</span>?</h2>
+                <p class="section-subtitle ar-only">واجهة سريعة وعملية للاستماع اليومي أثناء التنقل</p>
+                <p class="section-subtitle en-only">A fast, practical interface for daily listening on the go</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="ar-only">التشغيل في الخلفية وإشعار التحكم</h3>
+                    <h3 class="en-only">Background Play & Media Notification</h3>
+                    <p class="ar-only">استمع إلى الإذاعات والسور القرآنية حتى مع إغلاق شاشة الهاتف، مع إشعار خارجي للتحكم بالتشغيل والتنقل بين المحطات.</p>
+                    <p class="en-only">Listen to radio stations and Surahs with your phone screen off, complete with lock-screen media controls.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="ar-only">مواقيت الصلاة والأذان والذكر</h3>
+                    <h3 class="en-only">Prayer Times, Adhan & Athkar Bar</h3>
+                    <p class="ar-only">شريط علوي للأذكار ومواقيت الصلاة حسب دولتك ومدينتك، مع خيار تفعيل الأذان خارج التطبيق لتنبيهك بدخول وقت الصلاة.</p>
+                    <p class="en-only">Top bar displaying Athkar and prayer times for your city, with an option to enable outside-app Adhan notifications.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="ar-only">المناهج التعليمية والمفضلة</h3>
+                    <h3 class="en-only">Educational Curricula & Favorites</h3>
+                    <p class="ar-only">تصفح واستمع إلى جميع سور القرآن، البث الحي للحرمين، دروس القاعدة النورانية، والتعلم بتكرار الآيات مع قائمة مفضلة خاصة بك.</p>
+                    <p class="en-only">Access all Surahs, Holy Mosques live streams, Nooraniyah lessons, and verse repetition with your personal favorites list.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم خطوات التثبيت على التلفاز -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title ar-only">طرق تثبيت التطبيق على <span>التلفاز</span></h2>
+                <h2 class="section-title en-only">How to Install on <span>Android TV</span></h2>
+            </div>
+
+            <div class="steps-box">
+                <div class="step-item">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h4 class="ar-only">الطريقة الأولى: من متجر Google Play على التلفاز مباشرة</h4>
+                        <h4 class="en-only">Method 1: Directly from Google Play Store on TV</h4>
+                        <p class="ar-only">افتح متجر Google Play في تلفازك، وابحث عن اسم التطبيق <strong>(صوت السكينة)</strong> ثم اضغط على تثبيت.</p>
+                        <p class="en-only">Open Google Play Store on your TV, search for <strong>(Sawt Al-Sakeenah)</strong>, and press Install.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h4 class="ar-only">الطريقة الثانية: التثبيت عن بُعد من خلال هاتفك</h4>
+                        <h4 class="en-only">Method 2: Remote Installation from Your Phone</h4>
+                        <p class="ar-only">اضغط على زر (فتح في متجر Google Play) في أعلى هذه الصفحة من هاتفك، ثم اضغط على السهم الصغير بجانب زر التثبيت واختر <strong>(تثبيت على مزيد من الأجهزة)</strong> وحدد اسم تلفازك ليتم تثبيته تلقائياً.</p>
+                        <p class="en-only">Tap (Open in Google Play) at the top of this page on your phone, tap the arrow next to Install, choose <strong>(Install on more devices)</strong>, and select your TV.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h4 class="ar-only">الطريقة الثالثة: عبر تطبيق Downloader أو ملف APK</h4>
+                        <h4 class="en-only">Method 3: Via Downloader App or Direct APK</h4>
+                        <p class="ar-only">للشاشات والأجهزة التي لا تحتوي على متجر جوجل، افتح تطبيق <strong>Downloader</strong> على التلفاز وأدخل الرمز الرقمي الموجود أدناه، أو قم بتنزيل ملف الـ APK وإرساله إلى التلفاز عبر تطبيق (Send Files to TV).</p>
+                        <p class="en-only">For devices without Google Play, open the <strong>Downloader</strong> app on your TV and enter the code shown below, or download the APK and send it via (Send Files to TV).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم خيارات التحميل والتنزيل -->
+        <section class="section" id="downloadSection">
+            <div class="section-header">
+                <h2 class="section-title ar-only">تحميل وتنزيل <span>التطبيق</span></h2>
+                <h2 class="section-title en-only">Download & Install the <span>App</span></h2>
+                <p class="section-subtitle ar-only">اختر الطريقة المناسبة لجهازك للتثبيت الفوري</p>
+                <p class="section-subtitle en-only">Choose the preferred method for instant installation on your device</p>
+            </div>
+
+            <!-- بطاقات التحميل الثلاث -->
+            <div class="download-grid">
+                <!-- بطاقة متجر Google Play الرسمي -->
+                <div class="dl-card featured">
+                    <div>
+                        <div class="dl-title">
+                            <span class="ar-only">متجر Google Play الرسمي</span>
+                            <span class="en-only">Official Google Play Store</span>
+                        </div>
+                        <div class="dl-desc">
+                            <span class="ar-only">التثبيت المباشر على التلفاز أو الهاتف، أو الإرسال للتلفاز عن بُعد عبر خيار (تثبيت على مزيد من الأجهزة).</span>
+                            <span class="en-only">Install directly on TV or phone, or send remotely to your TV via (Install on more devices).</span>
+                        </div>
+                    </div>
+                    <a id="playStoreBtn" href="#" target="_blank" class="btn-action green">
+                        <span class="ar-only">فتح في متجر Google Play</span>
+                        <span class="en-only">Open in Google Play</span>
+                    </a>
+                </div>
+
+                <!-- بطاقة كود Downloader للتلفاز -->
+                <div class="dl-card">
+                    <div>
+                        <div class="dl-title">
+                            <span class="ar-only">كود تطبيق Downloader للتلفاز</span>
+                            <span class="en-only">TV Downloader App Code</span>
+                        </div>
+                        <div class="dl-desc">
+                            <span class="ar-only">افتح تطبيق Downloader على جهاز التلفاز وأدخل هذا الرمز الرقمي لتنزيل وتثبيت التطبيق مباشرة:</span>
+                            <span class="en-only">Open the Downloader app on your TV and enter this code to download and install directly:</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="code-box">
+                            <span class="code-number" id="downloaderCodeText">000000</span>
+                            <button class="copy-btn" onclick="copyCode()" id="copyBtnText">نسخ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- بطاقة التحميل المباشر APK -->
+                <div class="dl-card">
+                    <div>
+                        <div class="dl-title">
+                            <span class="ar-only">تنزيل ملف التطبيق مباشر (APK)</span>
+                            <span class="en-only">Direct APK File Download</span>
+                        </div>
+                        <div class="dl-desc">
+                            <span class="ar-only">قم بتنزيل ملف التطبيق مباشرة على هاتفك أو جهازك وإرساله إلى شاشة التلفاز لتثبيته يدوياً.</span>
+                            <span class="en-only">Download the APK file directly to your device and send it to your TV for manual installation.</span>
+                        </div>
+                    </div>
+                    <a id="directApkBtn" href="#" target="_blank" class="btn-action">
+                        <span class="ar-only">تنزيل ملف APK المباشر</span>
+                        <span class="en-only">Download Direct APK</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <p class="ar-only">
+                جميع الحقوق محفوظة © تطبيق صوت السكينة | 
+                <a href="https://sites.google.com/view/sawt-alsakeenah-privacy/home" target="_blank">سياسة الخصوصية</a>
+            </p>
+            <p class="en-only">
+                All rights reserved © Sawt Al-Sakeenah App | 
+                <a href="https://sites.google.com/view/sawt-alsakeenah-privacy/home" target="_blank">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // =========================================================================
+        // عدّل الروابط والرقم هنا فقط عندما تجهزها:
+        // =========================================================================
+        const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.example.saudiquranradio";
+        const DIRECT_APK_URL = "https://pub-491ee7c81a5b4bab9fcc1da75b78b7e8.r2.dev/sawt-alsakeenah.apk";
+        const DOWNLOADER_CODE = "123456";
+        // =========================================================================
+
+        document.getElementById("playStoreBtn").href = PLAY_STORE_URL;
+        document.getElementById("directApkBtn").href = DIRECT_APK_URL;
+        document.getElementById("downloaderCodeText").innerText = DOWNLOADER_CODE;
+
+        function toggleLanguage() {
+            const html = document.documentElement;
+            const btn = document.getElementById("langToggleBtn");
+            const copyBtn = document.getElementById("copyBtnText");
+            if (html.lang === "ar") {
+                html.lang = "en";
+                html.dir = "ltr";
+                btn.innerText = "العربية";
+                copyBtn.innerText = "Copy";
+            } else {
+                html.lang = "ar";
+                html.dir = "rtl";
+                btn.innerText = "English";
+                copyBtn.innerText = "نسخ";
+            }
+        }
+
+        function copyCode() {
+            navigator.clipboard.writeText(DOWNLOADER_CODE);
+            const copyBtn = document.getElementById("copyBtnText");
+            const isEn = document.documentElement.lang === "en";
+            copyBtn.innerText = isEn ? "Copied!" : "تم النسخ!";
+            setTimeout(() => {
+                copyBtn.innerText = isEn ? "Copy" : "نسخ";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
