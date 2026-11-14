@@ -72,18 +72,32 @@
         }
 
         .brand-logo {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #2E7D32, #1B5E20);
             border: 1.5px solid var(--app-green-light);
+            object-fit: cover;
+            box-shadow: 0 4px 14px var(--green-glow);
+        }
+
+        .dl-title-wrap {
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gold);
-            font-weight: 800;
-            font-size: 20px;
-            box-shadow: 0 4px 14px var(--green-glow);
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .dl-title-wrap .dl-title {
+            margin-bottom: 0;
+        }
+
+        .downloader-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
         }
 
         .brand-name {
@@ -413,7 +427,7 @@
     <header>
         <div class="container nav-row">
             <div class="brand">
-                <div class="brand-logo">۞</div>
+                <img src="app_icon.png" alt="Sawt Al-Sakeenah" class="brand-logo">
                 <div class="brand-name">
                     <span class="ar-only">صوت السكينة</span>
                     <span class="en-only">Sawt Al-Sakeenah</span>
@@ -619,9 +633,12 @@
                 <!-- بطاقة كود Downloader للتلفاز -->
                 <div class="dl-card">
                     <div>
-                        <div class="dl-title">
-                            <span class="ar-only">كود تطبيق Downloader للتلفاز</span>
-                            <span class="en-only">TV Downloader App Code</span>
+                        <div class="dl-title-wrap">
+                            <img src="downloader_icon.png" alt="Downloader" class="downloader-icon">
+                            <div class="dl-title">
+                                <span class="ar-only">كود تطبيق Downloader للتلفاز</span>
+                                <span class="en-only">TV Downloader App Code</span>
+                            </div>
                         </div>
                         <div class="dl-desc">
                             <span class="ar-only">افتح تطبيق Downloader على جهاز التلفاز وأدخل هذا الرمز الرقمي لتنزيل وتثبيت التطبيق مباشرة:</span>
@@ -640,17 +657,17 @@
                 <div class="dl-card">
                     <div>
                         <div class="dl-title">
-                            <span class="ar-only">تنزيل ملف التطبيق مباشر (APK)</span>
-                            <span class="en-only">Direct APK File Download</span>
+                            <span class="ar-only">تنزيل ملف التطبيق مباشر لأجهزة الأندرويد (APK)</span>
+                            <span class="en-only">Direct APK Download for Android Devices</span>
                         </div>
                         <div class="dl-desc">
-                            <span class="ar-only">قم بتنزيل ملف التطبيق مباشرة على هاتفك أو جهازك وإرساله إلى شاشة التلفاز لتثبيته يدوياً.</span>
-                            <span class="en-only">Download the APK file directly to your device and send it to your TV for manual installation.</span>
+                            <span class="ar-only">قم بتنزيل ملف التطبيق مباشرة على جهازك الأندرويد أو إرساله إلى شاشة التلفاز لتثبيته يدوياً.</span>
+                            <span class="en-only">Download the APK file directly to your Android device or send it to your TV for manual installation.</span>
                         </div>
                     </div>
                     <a id="directApkBtn" href="#" target="_blank" class="btn-action">
-                        <span class="ar-only">تنزيل ملف APK المباشر</span>
-                        <span class="en-only">Download Direct APK</span>
+                        <span class="ar-only">تنزيل ملف APK لأجهزة الأندرويد</span>
+                        <span class="en-only">Download Android APK</span>
                     </a>
                 </div>
             </div>
@@ -675,7 +692,7 @@
         // =========================================================================
         // عدّل الروابط والرقم هنا فقط عندما تجهزها:
         // =========================================================================
-        const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=sawtalsakeenah.radio";
+        const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.example.saudiquranradio";
         const DIRECT_APK_URL = "https://sawt-alsakeenah.github.io/sawt-assets/sawt-alsakeenah.apk";
         const DOWNLOADER_CODE = "3026517";
         // =========================================================================
