@@ -30,6 +30,25 @@
             font-family: 'Cairo', sans-serif;
         }
 
+        @keyframes downloadPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 213, 79, 0.55);
+                transform: scale(1);
+            }
+            45% {
+                box-shadow: 0 0 26px 4px rgba(255, 213, 79, 0.35);
+                transform: scale(1.015);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 213, 79, 0);
+                transform: scale(1);
+            }
+        }
+
+        .dl-card.pulse-highlight {
+            animation: downloadPulse 0.65s ease-out;
+        }
+
         body {
             background-color: var(--bg-dark);
             background-image: 
@@ -455,7 +474,7 @@
                 Your complete Quranic companion to listen to renowned reciters, Holy Quran radio stations, live broadcasts of the Two Holy Mosques, Athkar, educational curricula, and accurate prayer times.
             </p>
             <div>
-                <a href="#downloadSection" class="btn-action green" style="max-width: 260px; margin: 0 auto;">
+                <a href="#downloadSection" id="goToDownloadBtn" class="btn-action green" style="max-width: 260px; margin: 0 auto;">
                     <span class="ar-only">الانتقال إلى خيارات التحميل</span>
                     <span class="en-only">Go to Download Options</span>
                 </a>
@@ -692,7 +711,7 @@
         // =========================================================================
         // عدّل الروابط والرقم هنا فقط عندما تجهزها:
         // =========================================================================
-        const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.example.saudiquranradio";
+        const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=sawtalsakeenah.radio";
         const DIRECT_APK_URL = "https://sawt-alsakeenah.github.io/sawt-assets/sawt-alsakeenah.apk";
         const DOWNLOADER_CODE = "3026517";
         // =========================================================================
@@ -735,6 +754,44 @@
                 copyBtn.innerText = isEn ? "Copy" : "نسخ";
             }, 2000);
         }
+
+        document.getElementById("goToDownloadBtn").addEventListener("click", function(e) {
+            e.preventDefault();
+            const target = document.getElementById("downloadSection");
+            const header = document.querySelector("header");
+            const headerHeight = header ? header.offsetHeight + 10 : 80;
+            const startY = window.pageYOffset;
+            const targetY = target.getBoundingClientRect().top + startY - headerHeight;
+            const distance = targetY - startY;
+            const duration = 500;
+            let startTime = null;
+
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const elapsed = timestamp - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                window.scrollTo(0, startY + distance * easeOutCubic(progress));
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    const cards = target.querySelectorAll(".dl-card");
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.remove("pulse-highlight");
+                            void card.offsetWidth;
+                            card.classList.add("pulse-highlight");
+                        }, index * 80);
+                    });
+                }
+            }
+
+            requestAnimationFrame(step);
+        });
     </script>
 </body>
 </html>
