@@ -624,7 +624,7 @@
                             <span class="en-only">Install directly on TV or phone, or send remotely to your TV via (Install on more devices).</span>
                         </div>
                     </div>
-                    <a id="playStoreBtn" href="https://play.google.com/store/apps/details?id=sawtalsakeenah.radio" target="_blank" rel="noopener noreferrer" class="btn-action green">
+                    <a id="playStoreBtn" href="https://play.google.com/store/apps/details?id=sawtalsakeenah.radio" class="btn-action green">
                         <span class="ar-only">فتح في متجر Google Play</span>
                         <span class="en-only">Open in Google Play</span>
                     </a>
@@ -697,7 +697,15 @@
         const DOWNLOADER_CODE = "3026517";
         // =========================================================================
 
-        document.getElementById("playStoreBtn").href = PLAY_STORE_URL;
+        const playStoreBtn = document.getElementById("playStoreBtn");
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if (isAndroid) {
+            playStoreBtn.href = "market://details?id=sawtalsakeenah.radio";
+        } else {
+            playStoreBtn.href = PLAY_STORE_URL;
+            playStoreBtn.target = "_blank";
+            playStoreBtn.rel = "noopener noreferrer";
+        }
         document.getElementById("directApkBtn").href = DIRECT_APK_URL;
         document.getElementById("downloaderCodeText").innerText = DOWNLOADER_CODE;
 
