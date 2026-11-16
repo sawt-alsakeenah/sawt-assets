@@ -119,6 +119,57 @@
             flex-shrink: 0;
         }
 
+        .tv-screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .tv-shot {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1.5px solid var(--glass-border);
+            background: var(--glass-bg);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .tv-shot:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 213, 79, 0.45);
+        }
+
+        .phone-screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .phone-shot {
+            width: 100%;
+            aspect-ratio: 9 / 19.5;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 1.5px solid var(--glass-border);
+            background: var(--glass-bg);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .phone-shot:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 213, 79, 0.45);
+        }
+
+        @media (max-width: 600px) {
+            .phone-screenshots-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+        }
+
         .brand-name {
             font-size: 20px;
             font-weight: 800;
@@ -545,6 +596,13 @@
                     <p class="en-only">Choose between calm static or video backgrounds, and switch effortlessly between horizontal bottom menus or vertical side menus.</p>
                 </div>
             </div>
+
+            <div class="tv-screenshots-grid">
+                <img src="TV1.png" alt="TV Screenshot 1" class="tv-shot" loading="lazy">
+                <img src="TV2.png" alt="TV Screenshot 2" class="tv-shot" loading="lazy">
+                <img src="TV3.png" alt="TV Screenshot 3" class="tv-shot" loading="lazy">
+                <img src="TV4.png" alt="TV Screenshot 4" class="tv-shot" loading="lazy">
+            </div>
         </section>
 
         <!-- قسم مميزات الهاتف -->
@@ -577,6 +635,13 @@
                     <p class="ar-only">تصفح واستمع إلى جميع سور القرآن، البث الحي للحرمين، دروس القاعدة النورانية، والتعلم بتكرار الآيات مع قائمة مفضلة خاصة بك.</p>
                     <p class="en-only">Access all Surahs, Holy Mosques live streams, Nooraniyah lessons, and verse repetition with your personal favorites list.</p>
                 </div>
+            </div>
+
+            <div class="phone-screenshots-grid">
+                <img src="phone1.png" alt="Phone Screenshot 1" class="phone-shot" loading="lazy">
+                <img src="phone2.png" alt="Phone Screenshot 2" class="phone-shot" loading="lazy">
+                <img src="phone3.png" alt="Phone Screenshot 3" class="phone-shot" loading="lazy">
+                <img src="phone4.png" alt="Phone Screenshot 4" class="phone-shot" loading="lazy">
             </div>
         </section>
 
@@ -634,9 +699,12 @@
                 <!-- بطاقة متجر Google Play الرسمي -->
                 <div class="dl-card featured">
                     <div>
-                        <div class="dl-title">
-                            <span class="ar-only">متجر Google Play الرسمي</span>
-                            <span class="en-only">Official Google Play Store</span>
+                        <div class="dl-title-wrap">
+                            <img src="google_play_icon.png" alt="Google Play" class="downloader-icon">
+                            <div class="dl-title">
+                                <span class="ar-only">متجر Google Play الرسمي</span>
+                                <span class="en-only">Official Google Play Store</span>
+                            </div>
                         </div>
                         <div class="dl-desc">
                             <span class="ar-only">التثبيت المباشر على التلفاز أو الهاتف، أو الإرسال للتلفاز عن بُعد عبر خيار (تثبيت على مزيد من الأجهزة).</span>
